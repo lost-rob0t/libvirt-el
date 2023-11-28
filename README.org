@@ -1,0 +1,8 @@
+#+title: Readme
+
+* Libvirt.el
+Manage libvirt virtual machines from emacs.
+
+It uses virsh to start and stop virtual machines
+
+** TODO Allow for creation of vm
