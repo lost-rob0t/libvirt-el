@@ -5,4 +5,20 @@ Manage libvirt virtual machines from emacs.
 
 It uses virsh to start and stop virtual machines
 
+** Usage
++ Start a VM with [[elisp:libvirt-start-vm][M-x libvirt-start-vm]]
+
++ Shutdown a VM with [[elisp:libvirt-shutdown-vm][M-x libvirt-shutdown-vm]]
+
++ Restart a VM with [[elisp:libvirt-restart-vm][M-x libvirt-restart-vm]]
+
++ Force shutdown a VM with [[elisp:libvirt-force-shutdown-vm][M-x libvirt-force-shutdown-vm]]
+
++ Force restart a VM with [[elisp:libvirt-force-restart-vm][M-x libvirt-force-restart-vm]]
+
++ Load a VM's XML configuration from a file with [[elisp:libvirt-define][M-x libvirt-define]]
+
++ Edit a VM's XML configuration inside a buffer with [[elisp:libvirt-edit-vm][M-x libvirt-edit-vm]]
+
+
 ** TODO Allow for creation of vm
