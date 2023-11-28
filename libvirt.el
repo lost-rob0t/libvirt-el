@@ -35,7 +35,7 @@
     vms))
 
 
-(defun is-running-p (vm-name)
+(defun libvirt-is-running-p (vm-name)
   "Is the vm running?"
   (string-equal (car (cdr (assoc vm-name (libvirt-list-vms)))) "running"))
 
@@ -63,7 +63,7 @@
 
 
 (defun libvirt-retart-vm (&optional vm-name)
-  "Force shutdown a virtual machine"
+  "Restart a virtual machine"
   (interactive)
   (let ((default-directory "/sudo::/"))
 
@@ -89,7 +89,7 @@
 
 
 (defun libvirt-force-restart-vm (&optional vm-name)
-  "Force shutdown a virtual machine"
+  "Force restart a virtual machine"
   (interactive)
   (let ((default-directory "/sudo::/"))
 
