@@ -103,5 +103,38 @@
 
 
 
+(defun libvirt-define (&optional file)
+  "Load a VM's XML configuration from a file"
+  (when (not file)
+    (setf file (read-file-name "select vm config: ")))
+  (let (
+        (default-directory "/sudo::/"))
+    (shell-command (format "%s define %s" virsh-path file) "virsh" "virsh-errors")))
+
+
+(defun libvirt-edit-vm (&optional vm-name)
+  "Edit a VM's XML configuration inside a buffer."
+  (interactive)
+  (when (not vm-name)
+    (setf vm-name (completing-read "select vm: " (mapcar #'car (libvirt-list-vms)))))
+  (let* ((buffer (get-buffer-create (format "~a config" vm-name)))
+         (default-directory "/sudo::/")
+         (tmp-name (make-temp-file (format "%s-virsh-edit" vm-name)))
+         (config (shell-command-to-string (format "%s dumpxml %s" virsh-path vm-name))))
+    (with-current-buffer buffer
+      (set-visited-file-name tmp-name)
+      (insert config)
+      (xml-mode)
+      (set-buffer-modified-p nil)
+      (local-set-key (kbd "C-c C-c") (lambda () (interactive)
+                                       (libvirt-define tmp-name)
+                                       (delete-file tmp-name)
+                                       (kill-buffer buffer)))
+      (local-set-key (kbd "C-c C-k") #'kill-buffer)
+      (message "Hit C-c to save config C-c C-k to abort")
+      (switch-to-buffer buffer))))
+
+
+
 (provide 'libvirt)
 ;;; libvirt.el ends here
